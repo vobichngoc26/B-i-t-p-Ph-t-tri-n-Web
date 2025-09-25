@@ -1,0 +1,11 @@
+body
+{
+    background-color: pink ;
+    background-image: url("../images/picture1.png");
+    background-size: cover ;
+    background-repeat: no-repeat ;
+    background-position: center ;
+}
+audio {
+    display:none;
+}
