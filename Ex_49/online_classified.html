@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <title> Ex49 Võ Bích Ngọc</title>
+    <style>
+        body {
+            background-color:rgb(206, 255, 255);
+        }
+    </style>
+    <script>
+        function Search() {
+            alert("Search simulation");
+        }
+
+        function Help() {
+            alert("This is Help page (Student optional)");
+        }
+    </script>
+  </head>
+  <body>
+    <form>
+        <h1 style="font-size:20pt; color:red;"> Online Classifieds Search Form</h1>
+        <hr/>
+        <h4> 1) Search for a classified in the following sections:</h4>
+        <p> 
+            <input type="radio" name="section" id="section1"/>
+            <label for="section1" style="display: inline-block;width: 100px;"> Employment </label>
+            <input type="radio" name="section" id="section2"/>
+            <label for="section2"> Personal </label>
+        <br/>
+            <input type="radio" name="section" id="section3"/>
+            <label for="section3" style="display: inline-block;width: 100px;"> For Sale </label>
+            <input type="radio" name="section" id="section4"/>
+            <label for="section4"> Miscellanecus </label>
+        <br/> 
+            <input type="radio" name="section" id="section5"/>
+            <label for="section5" style="display: inline-block;width: 100px;"> Housing </label>
+            <input type="radio" name="section" id="section6"/>
+            <label for="section6"> All of the above </label>
+        </p>
+        <h4> 2) Search the following publications:</h4>
+        <p> 
+            <input type="checkbox" name="mt" id="mt"/>
+            <label for="mt" style="display: inline-block;width: 200px;"> Midwest times </label>
+            <input type="checkbox" name="mn" id="mn"/>
+            <label for="mn" style="display: inline-block;width: 200px;"> Morden News </label>
+            <input type="checkbox" name="et" id="et"/>
+            <label for="et"> Employment Today </label>
+        <br/>
+            <input type="checkbox" name="glc" id="glc"/>
+            <label for="glc" style="display: inline-block;width: 200px;"> Great Lakes Classifieds </label>
+            <input type="checkbox" name="md" id="md"/>
+            <label for="md" style="display: inline-block;width: 200px;"> Middleton Daily </label>
+            <input type="checkbox" name="cdn" id="cdn"/>
+            <label for="cdn"> Cashtown Daily News </label>
+        </p>
+        <h4> 3) <label for="date"> From to </label> 
+                <input type="text" name="date" id="date" value="dd/mm/yy"/> 
+                <span style="font-weight:normal"> to  </span>
+                <input type="text" name="date1" id="date1" value="dd/mm/yy"/>  
+        </h4>
+        <h4> 4) Enter a few keywords to describe the classified:</h4>
+        <input type="text" name="keyword" id="keyword" style="width:500"/>
+        <h4> 5) Click one of the options below:</h4>
+        <button type="button" onclick="javascript:Search()"> 
+            <img src="images/Search.gif"/> </button>
+        <button type="button" onclick="javascript:Help()">
+         <img src="images/Help.gif"/> </button>
+        <button type="reset"><img src="images/Cancel.gif"/></button>
+    </form>
+  </body>
+</html>
