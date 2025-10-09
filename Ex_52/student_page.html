@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title> Ex_52 - Bích Ngọc</title>
+    <style> 
+        td {
+            padding: 10px;
+            vertical-align: top;
+        }
+        .label {
+            font-weight: bold;
+            width: 100px;
+        }
+      </style>
+  </head>
+  <body>
+    <table border="1">
+        <tr>
+            <td>
+    <h1> Message Details</h1>
+    <table>
+      <tr>
+        <td class="label">Full Name:</td>
+        <td id="name"></td>
+      </tr>
+      <tr>
+        <td class="label">Email:</td>
+        <td id="email"></td>
+      </tr>
+      <tr>
+        <td class="label">Send to:</td>
+        <td id="department"></td>
+      </tr>
+      <tr>
+        <td class="label">Title:</td>
+        <td id="title"></td>
+      </tr>
+      <tr>
+        <td class="label">Content:</td>
+        <td id="content"></td>
+      </tr>
+      </td>
+        </tr>
+    </table>
+    </table>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+      document.getElementById("name").textContent = params.get("fullname");
+      document.getElementById("email").textContent = params.get("email");
+      document.getElementById("department").textContent = params.get("department");
+      document.getElementById("title").textContent = params.get("title");
+      document.getElementById("content").textContent = params.get("content");
+    </script>
+
+  </body>
+</html>
