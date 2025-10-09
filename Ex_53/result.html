@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <title> Result - Bích Ngọc </title>
+  </head>
+  <body>
+    <h2> Result of Your Order </h2>
+    <p id="mouseResult"></p>
+    <p id="keyboardResult"></p>
+    <p id="usbResult"></p>
+    <hr>
+    <p id="totalResult"></p>
+    <script>
+    const params = new URLSearchParams(window.location.search);
+    const qty1 = params.get('quantity1');
+    const qty2 = params.get('quantity2');
+    const qty3 = params.get('quantity3');
+    const item1 = params.get('itemtable1');
+    const item2 = params.get('itemtable2');
+    const item3 = params.get('itemtable3');
+    const total = params.get('total');
+    document.getElementById("mouseResult").innerText = "Mouse: Qty = " + (qty1) + ", Item = " + (item1);
+      document.getElementById("keyboardResult").innerText ="Keyboard US: Qty = " + (qty2) + ", Item = " + (item2);
+      document.getElementById("usbResult").innerText= "USB KingMax: Qty = " + (qty3) + ", Item = " + (item3);
+      document.getElementById("totalResult").innerText = "Total: " + (total) + "$";
+    </script>
+  </script>
+  </body>
+</html>
