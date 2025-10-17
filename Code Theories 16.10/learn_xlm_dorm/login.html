@@ -1,0 +1,78 @@
+<html>
+  <head>
+    <title> Login system</title>
+     <script type="text/javascript">
+        accounts=[
+            {"user":"admin",
+            "password":"123"
+            },
+            {"user":"employee",
+            "password":"456"
+            }
+        ]
+    </script>
+    <script type="text/javascript">
+        function process_login()
+        {
+            uid=myform.user_name.value
+            pwd=myform.user_password.value
+            login_ac=null
+            for (i=0;i<accounts.length;i++)
+        {
+            ac=accounts[i]
+            if(ac.user==uid && ac.password==pwd)
+        {
+            //login success
+            login_ac=ac
+            break
+        }
+        }
+        if (login_ac==null)
+        {
+            alert(" Login failed, pls contact to admin")
+        }
+        else{
+            window.location="xml_ajax.html"
+        }
+        }
+    </script>
+  </head>
+  <body>
+    <form name="myform">
+        <fieldset>
+            <legend> Login ACB System </legend>
+            <table>
+                <tr>
+                    <td rowspan="6">
+                        <img src="images/admin.png" width="200"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td> User: </td>
+                    <td>
+                        <input type="text" id="user_name" name="use_name"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td> Password: </td>
+                    <td>
+                        <input type="password" id="user_password" name="use_password"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <input type="checkbox" name="save_info" id="save_info"/>
+                        <label for="save_info"> Save Login Information</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <button type="button" onclick="process_login()"> Login</button>
+                    </td>
+                </tr>
+            </table>
+        </fieldset>        
+
+    </form>
+  </body>
+</html>
