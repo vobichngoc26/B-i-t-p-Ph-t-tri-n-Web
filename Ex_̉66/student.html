@@ -1,0 +1,65 @@
+<html>
+  <head>
+    <title> Ex_66 - Bích Ngọc </title>
+  </head>
+  <body>
+    <table border="1">
+        <tr>
+        <th style="background-color:rgb(189, 219, 186)" colspan="2"> Student Information</th>
+        </tr>
+        <tr>
+            <td> Student ID: </td>
+            <td id="st_id"></td>
+        </tr>
+        <tr>
+            <td> Student Name: </td>
+            <td id="st_name"></td>
+        </tr>
+        <tr>
+            <td> Birdthday: </td>
+            <td id="birthday"></td>
+        </tr>
+        <tr>
+            <td> Gender: </td>
+            <td id="Gender"></td>
+        </tr>
+    </table>
+
+     <script type="text/javascript">
+      var xhr = new XMLHttpRequest();
+      xhr.open("GET", "student.xml", true);
+      xhr.send();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+          var xmlDoc = xhr.responseXML;
+          var student = xmlDoc.getElementsByTagName("student")[0];
+
+          id = student.getElementsByTagName("id")[0].textContent;
+          name = student.getElementsByTagName("name")[0].textContent;
+          birthday = student.getElementsByTagName("birthday")[0].textContent;
+          gender = student.getElementsByTagName("gender")[0].textContent;
+          document.getElementById("st_id").innerText = id;
+          document.getElementById("st_name").innerText = name;
+          document.getElementById("birthday").innerText = birthday;
+          document.getElementById("Gender").innerText = gender;
+
+          rows = document.getElementsByTagName("tr");
+          for (let i = 1; i < rows.length; i++) 
+          {
+            rows[i].addEventListener("mouseover", function () 
+            {
+              this.style.backgroundColor = "blue";
+              this.style.color = "white";
+            });
+
+            rows[i].addEventListener("mouseout", function () 
+            {
+              this.style.backgroundColor = "white";
+              this.style.color = "black";
+            });
+          }
+        }
+      };
+    </script>
+  </body>
+</html>
