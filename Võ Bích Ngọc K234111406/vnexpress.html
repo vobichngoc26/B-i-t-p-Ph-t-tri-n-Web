@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>Bích Ngọc - RSS Kinh Doanh</title>
+  </head>
+  <body>
+    <h2>Tin RSS Kinh Doanh từ VnExpress</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Public Date</th>
+          <th>Link</th>
+          <th>Image</th>
+        </tr>
+      </thead>
+      <tbody id="vnexpress_tbody"></tbody>
+    </table>
+
+    <script>
+      async function loadRSS() {
+        const url = "https://vnexpress.net/rss/kinh-doanh.rss";
+
+        const res = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`);
+        const data = await res.json();
+
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(data.contents, "text/xml");
+
+        const items = xml.querySelectorAll("item");
+        const tbody = document.getElementById("vnexpress_tbody");
+        tbody.innerHTML = "";
+
+        items.forEach((item) => {
+          const title = item.querySelector("title")?.textContent || "";
+          const desc = item.querySelector("description")?.textContent || "";
+          const pubDate = item.querySelector("pubDate")?.textContent || "";
+          const link = item.querySelector("link")?.textContent || "";
+
+          // Trích hình ảnh từ description (thường nằm trong thẻ <img>)
+          const imgMatch = desc.match(/<img[^>]+src="([^">]+)"/);
+          const imgSrc = imgMatch ? imgMatch[1] : "";
+
+          // Loại bỏ HTML trong description
+          const textDesc = desc.replace(/<[^>]*>?/gm, "").trim();
+
+          tbody.innerHTML += `
+            <tr>
+              <td>${title}</td>
+              <td>${textDesc}</td>
+              <td>${pubDate}</td>
+              <td><a href="${link}" target="_blank">Xem bài</a></td>
+              <td>${imgSrc ? `<img src="${imgSrc}" width="100">` : ""}</td>
+            </tr>
+          `;
+        });
+      }
+
+      loadRSS();
+    </script>
+  </body>
+</html>
