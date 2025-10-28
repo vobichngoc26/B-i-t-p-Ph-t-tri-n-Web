@@ -1,0 +1,141 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Bích Ngọc - Tuổi Trẻ weathers</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #c3e5f5, #fefefe);
+        padding: 40px;
+        color: #333;
+      }
+      h2 {
+        text-align: center;
+        color: #005b96;
+      }
+      select {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 14px;
+        border-radius: 10px;
+        border: 1px solid #aaa;
+        font-size: 16px;
+        background: white;
+      }
+      .weather-card {
+        width: 400px;
+        margin: 20px auto;
+        background: white;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.1);
+        border-radius: 16px;
+        overflow: hidden;
+        padding: 20px;
+        text-align: center;
+      }
+      .weather-card img {
+        width: 100px;
+      }
+      .temp {
+        font-size: 40px;
+        font-weight: bold;
+        color: #ff9800;
+      }
+      .detail-table {
+        width: 100%;
+        margin-top: 15px;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      .detail-table th {
+        text-align: left;
+        padding: 6px;
+        color: #666;
+      }
+      .detail-table td {
+        text-align: right;
+        padding: 6px;
+      }
+    </style>
+
+    <script>
+      var ids = [
+        '2347719','20070078','20070086','2347731','2347730','20070081','20070087','20070084',
+        '20070088','2347703','2347704','20070082','2347732','28301718','20070085','1252375',
+        '2347720','28301719','2347721','2347722','2347733','2347727','2347728','2347734',
+        '2347741','2347736','2347737','20070079','20070080','2347707','28301720','2347738',
+        '2347723','20070076','2347708','2347710','2347740','2347709','2347718','20070089',
+        '2347742','2347743','2347744','20070091','2347745','2347746','2347711','20070077',
+        '2347712','2347747','2347748','2347713','2347715','2347716','20070083','2347749',
+        '2347717','2347750','2347751','2347714','2347752','20070090','2347729','2347753'
+      ];
+
+      var names = [
+        'An Giang','Bình Dương','Bình Phước','Bình Thuận','Bình Định','Bạc Liêu','Bắc Giang','Bắc Kạn',
+        'Bắc Ninh','Bến Tre','Cao Bằng','Cà Mau','Cần Thơ','Điện Biên','Đà Nẵng','Đà Lạt',
+        'Đắk Lắk','Đắk Nông','Đồng Nai','Đồng Tháp','Gia Lai','Hà Nội','TP. Hồ Chí Minh','Hà Giang',
+        'Hà Nam','Hà Tĩnh','Hòa Bình','Hưng Yên','Hải Dương','Hải Phòng','Hậu Giang','Khánh Hòa',
+        'Kiên Giang','Kon Tum','Lai Châu','Long An','Lào Cai','Lâm Đồng','Lạng Sơn','Nam Định',
+        'Nghệ An','Ninh Bình','Ninh Thuận','Phú Thọ','Phú Yên','Quảng Bình','Quảng Nam','Quảng Ngãi',
+        'Quảng Ninh','Quảng Trị','Sóc Trăng','Sơn La','Thanh Hóa','Thái Bình','Thái Nguyên','Thừa Thiên Huế',
+        'Tiền Giang','Trà Vinh','Tuyên Quang','Tây Ninh','Vĩnh Long','Vĩnh Phúc','Vũng Tàu','Yên Bái'
+      ];
+
+      function load_provinces() {
+        const provinces = document.getElementById("provinces");
+        for (let i = 0; i < ids.length; i++) {
+          const opt = document.createElement("option");
+          opt.value = ids[i];
+          opt.textContent = names[i];
+          provinces.appendChild(opt);
+        }
+      }
+
+      function show_detail_weather_forecast(id) {
+        if (!id) return;
+        const api = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent("https://utils3.cnnd.vn/ajax/weatherinfo/" + id + ".htm");
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", api, true);
+        xhr.onload = function() {
+          if (xhr.status === 200) {
+            const res = JSON.parse(xhr.responseText);
+            const data = res.Data.data.datainfo;
+
+            document.getElementById("weather-result").innerHTML = `
+              <div class="weather-card">
+                <h3>${data.location}</h3>
+                <img src="${data.shadow_icon}" alt="icon thời tiết">
+                <div class="temp">${data.temperature}°${data.degree}</div>
+                <p>${data.status}</p>
+                <table class="detail-table">
+                  <tr><th>Cảm giác như:</th><td>${data.feels_like}°${data.degree}</td></tr>
+                  <tr><th>Độ ẩm:</th><td>${data.humidity}</td></tr>
+                  <tr><th>Tốc độ gió:</th><td>${data.wind.index} ${data.wind.unit}</td></tr>
+                  <tr><th>Hướng gió:</th><td>${data.windDirection}</td></tr>
+                  <tr><th>UV:</th><td>${data.UV_index.index} (${data.UV_index.status})</td></tr>
+                  <tr><th>Bình minh:</th><td>${data.sunrise}</td></tr>
+                  <tr><th>Hoàng hôn:</th><td>${data.sunset}</td></tr>
+                  <tr><th>Chất lượng không khí:</th><td>${data.air.status} (AQI ${data.air.aqi})</td></tr>
+                </table>
+              </div>`;
+          } else {
+            document.getElementById("weather-result").innerText = "Không thể tải dữ liệu thời tiết.";
+          }
+        };
+        xhr.onerror = function() {
+          document.getElementById("weather-result").innerText = "Lỗi kết nối.";
+        };
+        xhr.send();
+      }
+
+      window.onload = load_provinces;
+    </script>
+  </head>
+
+  <body>
+    <h2>🌦 Dự báo thời tiết Tuổi Trẻ</h2>
+    <select id="provinces" onchange="show_detail_weather_forecast(this.value)">
+      <option value="">-- Chọn tỉnh/thành phố --</option>
+    </select>
+    <div id="weather-result">Chọn tỉnh để xem thông tin thời tiết.</div>
+  </body>
+</html>
